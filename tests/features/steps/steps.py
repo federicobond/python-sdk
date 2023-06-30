@@ -1,40 +1,44 @@
 
+from open_feature.flag_evaluation.flag_evaluation_details import FlagEvaluationDetails
 from behave import given, when, then
 from open_feature.open_feature_api import get_client, get_provider, set_provider
+from open_feature.open_feature_client import OpenFeatureClient
 
 
 # Common step definitions
 
-client = None
+
+@then('the resolved {flag_type} details reason of flag with key "{key}" should be "{reason}"')
+def step_then_flag_reason_should_be(context, flag_type, key, expected_reason):
+    details: FlagEvaluationDetails = None
+    if flag_type == 'boolean':
+        details = context.boolean_flag_details
+        assert expected_reason == details.reason.value
+
+
 @given('a provider is registered with cache {cache_status}')
 def step_given_provider_with_cache(context, cache_status):
     # Setup a provider with caching enabled, for now we do nothing as implementation doesn't exist.
     context.client = get_client(name="Default Provider", version="1.0")
 
-@given('a {flag_type} flag with key "{key}" is evaluated with {eval_details} and default value "{default_value}"')
-def step_given_flag_is_evaluated(context, flag_type, key, eval_details, default_value):
-    raise NotImplementedError("Step definition not implemented yet")
-
-@when('a boolean flag with key "{key}" is evaluated with {eval_details} and default value "{default_value}"')
+@given('a {flag_type} flag with key "{key}" is evaluated with details and default value "{default_value}"')
+def step_given_flag_is_evaluated(context, flag_type, key, default_value):
+    context.client = get_client(name="Default Provider", version="1.0")
+    if flag_type == 'boolean':
+        context.boolean_flag_details = context.client.get_boolean_details(key, default_value)
+        
+@when('a {flag_type} flag with key "{key}" is evaluated with {eval_details} and default value "{default_value}"')
 def step_when_flag_is_evaluated(context, flag_type, key, eval_details, default_value):
-    context.client.set_boolean()
-
-@then('the resolved boolean details reason of flag with key "{key}" should be "{reason}"')
-def step_then_flag_reason_should_be(context, flag_type, key, reason):
-
-
+    client: OpenFeatureClient = context.client
+    
+    context.boolean_flag_details = client.get_boolean_details(key, default_value)
+    
 # Flag evaluation step definitions
-
-@then('the resolved {flag_type} value should be "{expected_value}"')
-@then('the resolved {flag_type} details value should be "{expected_value}", the variant should be "{variant}", and the reason should be "{reason}"')
-def step_then_resolved_flag_details(context, flag_type, expected_value, variant=None, reason=None):
-    if variant is None and reason is None:
-        # Handle the case where only flag_type and expected_value are specified
-        pass
-    else:
-        # Handle the case where flag_type, expected_value, variant, and reason are all specified
-        pass
-    raise NotImplementedError("Step definition not implemented yet")
+@then('the resolved boolean details value should be "{expected_value}", the variant should be "{variant}", and the reason should be "{reason}"')
+def step_then_resolved_flag_details(context, expected_value, variant=None, reason=None):
+    assert expected_value == context.boolean_flag_details.value
+    assert variant == context.boolean_flag_details.variant
+    assert reason == context.boolean_flag_details.reason
 
 @then('the resolved object value should be contain fields "{field1}", "{field2}", and "{field3}", with values "{val1}", "{val2}" and {val3}, respectively')
 def step_then_resolved_object_value_should_contain_fields(context, field1, field2, field3, val1, val2, val3):
