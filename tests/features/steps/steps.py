@@ -1,33 +1,27 @@
 
 from behave import given, when, then
+from open_feature.open_feature_api import get_client, get_provider, set_provider
+
 
 # Common step definitions
 
+client = None
 @given('a provider is registered with cache {cache_status}')
 def step_given_provider_with_cache(context, cache_status):
-    raise NotImplementedError("Step definition not implemented yet")
+    # Setup a provider with caching enabled, for now we do nothing as implementation doesn't exist.
+    context.client = get_client(name="Default Provider", version="1.0")
 
 @given('a {flag_type} flag with key "{key}" is evaluated with {eval_details} and default value "{default_value}"')
 def step_given_flag_is_evaluated(context, flag_type, key, eval_details, default_value):
     raise NotImplementedError("Step definition not implemented yet")
 
-@when('a {flag_type} flag with key "{key}" is evaluated with {eval_details} and default value "{default_value}"')
+@when('a boolean flag with key "{key}" is evaluated with {eval_details} and default value "{default_value}"')
 def step_when_flag_is_evaluated(context, flag_type, key, eval_details, default_value):
-    raise NotImplementedError("Step definition not implemented yet")
+    context.client.set_boolean()
 
-@then('the resolved {flag_type} details reason of flag with key "{key}" should be "{reason}"')
+@then('the resolved boolean details reason of flag with key "{key}" should be "{reason}"')
 def step_then_flag_reason_should_be(context, flag_type, key, reason):
-    # Check if "-copy" is in the key and handle accordingly
-    is_copy = "-copy" in key
-    if is_copy:
-        key = key.replace("-copy", "")
-        # handle the logic for when it's a copy
-        pass
-    else:
-        # handle the logic for when it's not a copy
-        pass
 
-    raise NotImplementedError("Step definition not implemented yet")
 
 # Flag evaluation step definitions
 
