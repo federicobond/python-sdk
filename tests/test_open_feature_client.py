@@ -125,5 +125,5 @@ def test_should_handle_an_open_feature_exception_thrown_by_a_provider(
     assert flag_details is not None
     assert flag_details.value
     assert isinstance(flag_details.value, bool)
-    assert flag_details.reason == Reason.ERROR.value
+    assert flag_details.reason == Reason.ERROR
     assert flag_details.error_message == "error_message"

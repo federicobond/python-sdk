@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class Reason(Enum):
+class Reason(StrEnum):
     CACHED = "CACHED"
     DEFAULT = "DEFAULT"
     DISABLED = "DISABLED"
