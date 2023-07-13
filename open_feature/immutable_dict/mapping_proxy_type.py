@@ -23,7 +23,7 @@ class MappingProxyType(dict):
     __setitem__ = _immutable
     __delitem__ = _immutable
     clear = _immutable
-    update = _immutable
-    setdefault = _immutable
-    pop = _immutable
+    update = _immutable  # type: ignore
+    setdefault = _immutable  # type: ignore
+    pop = _immutable  # type: ignore
     popitem = _immutable

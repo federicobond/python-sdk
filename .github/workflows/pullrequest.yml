@@ -56,6 +56,9 @@ jobs:
       - name: Run isort formatter check
         run: isort .
 
+      - name: Run mypy typechecker
+        run: mypy
+
       - name: Test with pytest
         run: coverage run --omit="*/test*" -m pytest
 
