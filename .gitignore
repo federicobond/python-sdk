@@ -51,5 +51,4 @@ docs/_build/
 
 # Virtual env directories
 .venv
-tests/features/caching.feature
-tests/features/evaluation.feature
+tests/features/*.feature
