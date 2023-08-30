@@ -2,7 +2,7 @@ import pytest
 
 from open_feature.exception.error_code import ErrorCode
 from open_feature.exception.exceptions import GeneralError
-from open_feature.open_feature_api import (
+from open_feature.api import (
     get_client,
     get_provider,
     set_provider,
