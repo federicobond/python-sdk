@@ -1,9 +1,11 @@
+from __future__ import annotations
 from abc import abstractmethod
+from typing import TYPE_CHECKING
 
-from open_feature.evaluation_context.evaluation_context import EvaluationContext
-from open_feature.flag_evaluation.flag_evaluation_details import FlagEvaluationDetails
-from open_feature.flag_evaluation.flag_type import FlagType
-from open_feature.hooks.hook_context import HookContext
+if TYPE_CHECKING:
+    from open_feature.evaluation_context import EvaluationContext
+    from open_feature.flag_evaluation import FlagEvaluationDetails, FlagType
+    from open_feature.hooks.hook_context import HookContext
 
 
 class Hook:

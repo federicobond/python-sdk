@@ -1,6 +1,6 @@
 import typing
 
-from open_feature.evaluation_context.evaluation_context import EvaluationContext
+from open_feature.evaluation_context import EvaluationContext
 from open_feature.exception.exceptions import GeneralError
 from open_feature.client import OpenFeatureClient
 from open_feature.provider.metadata import Metadata
