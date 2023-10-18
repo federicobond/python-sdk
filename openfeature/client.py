@@ -27,6 +27,8 @@ from openfeature.hook.hook_support import (
 from openfeature.provider.no_op_provider import NoOpProvider
 from openfeature.provider.provider import AbstractProvider
 
+__all__ = ["ClientMetadata", "OpenFeatureClient"]
+
 GetDetailCallable = typing.Union[
     typing.Callable[
         [str, bool, typing.Optional[EvaluationContext]], FlagResolutionDetails[bool]
@@ -264,9 +266,9 @@ class OpenFeatureClient:
             + evaluation_hooks
             + self.provider.get_provider_hooks()
         )
+
         # after, error, finally: Provider, Invocation, Client, API
-        reversed_merged_hooks = merged_hooks[:]
-        reversed_merged_hooks.reverse()
+        reversed_merged_hooks = list(reversed(merged_hooks))
 
         try:
             # https://github.com/open-feature/spec/blob/main/specification/sections/03-evaluation-context.md
@@ -276,7 +278,7 @@ class OpenFeatureClient:
             invocation_context = before_hooks(
                 flag_type, hook_context, merged_hooks, hook_hints
             )
-            invocation_context = invocation_context.merge(ctx2=evaluation_context)
+            invocation_context = invocation_context.merge(evaluation_context)
 
             # Requirement 3.2.2 merge: API.context->client.context->invocation.context
             merged_context = (
@@ -314,7 +316,7 @@ class OpenFeatureClient:
             )
         # Catch any type of exception here since the user can provide any exception
         # in the error hooks
-        except Exception as err:  # noqa
+        except Exception as err:
             error_hooks(flag_type, hook_context, err, reversed_merged_hooks, hook_hints)
 
             error_message = getattr(err, "error_message", str(err))

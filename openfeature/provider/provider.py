@@ -6,6 +6,8 @@ from openfeature.flag_evaluation import FlagResolutionDetails
 from openfeature.hook import Hook
 from openfeature.provider.metadata import Metadata
 
+__all__ = ["AbstractProvider"]
+
 
 class AbstractProvider:
     def initialize(self, evaluation_context: EvaluationContext):

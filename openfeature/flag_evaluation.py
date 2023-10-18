@@ -10,6 +10,16 @@ if typing.TYPE_CHECKING:  # resolves a circular dependency in type annotations
     from openfeature.hook import Hook
 
 
+__all__ = [
+    "FlagType",
+    "Reason",
+    "FlagMetadata",
+    "FlagEvaluationDetails",
+    "FlagEvaluationOptions",
+    "FlagResolutionDetails",
+]
+
+
 class FlagType(StrEnum):
     BOOLEAN = "BOOLEAN"
     STRING = "STRING"

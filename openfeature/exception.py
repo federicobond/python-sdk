@@ -1,6 +1,17 @@
 import typing
 from enum import Enum
 
+__all__ = [
+    "ErrorCode",
+    "OpenFeatureError",
+    "FlagNotFoundError",
+    "GeneralError",
+    "ParseError",
+    "TypeMismatchError",
+    "TargetingKeyMissingError",
+    "InvalidContextError",
+]
+
 
 class ErrorCode(Enum):
     PROVIDER_NOT_READY = "PROVIDER_NOT_READY"

@@ -9,6 +9,9 @@ from openfeature.hook import Hook
 from openfeature.provider.metadata import Metadata
 from openfeature.provider.provider import AbstractProvider
 
+__all__ = ["InMemoryFlag", "InMemoryProvider"]
+
+
 PASSED_IN_DEFAULT = "Passed in default"
 
 

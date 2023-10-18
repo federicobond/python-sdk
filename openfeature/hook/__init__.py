@@ -7,6 +7,8 @@ from enum import Enum
 from openfeature.evaluation_context import EvaluationContext
 from openfeature.flag_evaluation import FlagEvaluationDetails, FlagType
 
+__all__ = ["HookType", "HookContext", "Hook"]
+
 
 class HookType(Enum):
     BEFORE = "before"

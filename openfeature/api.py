@@ -8,6 +8,18 @@ from openfeature.provider.metadata import Metadata
 from openfeature.provider.no_op_provider import NoOpProvider
 from openfeature.provider.provider import AbstractProvider
 
+__all__ = [
+    "get_client",
+    "set_provider",
+    "get_provider",
+    "get_provider_metadata",
+    "get_evaluation_context",
+    "set_evaluation_context",
+    "add_hooks",
+    "clear_hooks",
+    "get_hooks",
+]
+
 _provider: AbstractProvider = NoOpProvider()
 
 _evaluation_context = EvaluationContext()

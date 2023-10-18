@@ -7,6 +7,8 @@ from openfeature.provider.metadata import Metadata
 from openfeature.provider.no_op_metadata import NoOpMetadata
 from openfeature.provider.provider import AbstractProvider
 
+__all__ = ["NoOpProvider"]
+
 PASSED_IN_DEFAULT = "Passed in default"
 
 

@@ -1,5 +1,6 @@
 import logging
 import typing
+from collections.abc import Iterable
 from functools import reduce
 
 from openfeature.evaluation_context import EvaluationContext
@@ -11,7 +12,7 @@ def error_hooks(
     flag_type: FlagType,
     hook_context: HookContext,
     exception: Exception,
-    hooks: typing.List[Hook],
+    hooks: Iterable[Hook],
     hints: typing.Optional[typing.Mapping] = None,
 ):
     kwargs = {"hook_context": hook_context, "exception": exception, "hints": hints}
@@ -23,7 +24,7 @@ def error_hooks(
 def after_all_hooks(
     flag_type: FlagType,
     hook_context: HookContext,
-    hooks: typing.List[Hook],
+    hooks: Iterable[Hook],
     hints: typing.Optional[typing.Mapping] = None,
 ):
     kwargs = {"hook_context": hook_context, "hints": hints}
@@ -36,7 +37,7 @@ def after_hooks(
     flag_type: FlagType,
     hook_context: HookContext,
     details: FlagEvaluationDetails,
-    hooks: typing.List[Hook],
+    hooks: Iterable[Hook],
     hints: typing.Optional[typing.Mapping] = None,
 ):
     kwargs = {"hook_context": hook_context, "details": details, "hints": hints}
@@ -48,7 +49,7 @@ def after_hooks(
 def before_hooks(
     flag_type: FlagType,
     hook_context: HookContext,
-    hooks: typing.List[Hook],
+    hooks: Iterable[Hook],
     hints: typing.Optional[typing.Mapping] = None,
 ) -> EvaluationContext:
     kwargs = {"hook_context": hook_context, "hints": hints}
@@ -64,7 +65,7 @@ def before_hooks(
 
 
 def _execute_hooks(
-    flag_type: FlagType, hooks: typing.List[Hook], hook_method: HookType, **kwargs
+    flag_type: FlagType, hooks: Iterable[Hook], hook_method: HookType, **kwargs
 ) -> list:
     """
     Run multiple hooks of any hook type. All of these hooks will be run through an
@@ -84,7 +85,7 @@ def _execute_hooks(
 
 
 def _execute_hooks_unchecked(
-    flag_type: FlagType, hooks, hook_method: HookType, **kwargs
+    flag_type: FlagType, hooks: Iterable[Hook], hook_method: HookType, **kwargs
 ) -> list:
     """
     Execute a single hook without checking whether an exception is thrown. This is
@@ -116,5 +117,5 @@ def _execute_hook_checked(hook: Hook, hook_method: HookType, **kwargs):
     """
     try:
         return getattr(hook, hook_method.value)(**kwargs)
-    except Exception:  # noqa
-        logging.error(f"Exception when running {hook_method.value} hooks")
+    except Exception:
+        logging.exception(f"Exception when running {hook_method.value} hooks")
