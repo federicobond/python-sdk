@@ -4,9 +4,8 @@ from openfeature.client import OpenFeatureClient
 from openfeature.evaluation_context import EvaluationContext
 from openfeature.exception import GeneralError
 from openfeature.hook import Hook
-from openfeature.provider.metadata import Metadata
+from openfeature.provider import AbstractProvider, Metadata
 from openfeature.provider.no_op_provider import NoOpProvider
-from openfeature.provider.provider import AbstractProvider
 
 _provider: AbstractProvider = NoOpProvider()
 

@@ -17,9 +17,8 @@ from openfeature.api import (
 from openfeature.evaluation_context import EvaluationContext
 from openfeature.exception import ErrorCode, GeneralError
 from openfeature.hook import Hook
-from openfeature.provider.metadata import Metadata
+from openfeature.provider import AbstractProvider, Metadata
 from openfeature.provider.no_op_provider import NoOpProvider
-from openfeature.provider.provider import AbstractProvider
 
 
 def test_should_not_raise_exception_with_noop_client():

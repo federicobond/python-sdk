@@ -24,8 +24,8 @@ from openfeature.hook.hook_support import (
     before_hooks,
     error_hooks,
 )
+from openfeature.provider import AbstractProvider
 from openfeature.provider.no_op_provider import NoOpProvider
-from openfeature.provider.provider import AbstractProvider
 
 GetDetailCallable = typing.Union[
     typing.Callable[
